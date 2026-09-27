@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/auth/**
+
+        - id: expense-service
+          uri: ${EXPENSE_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/expenses/**
+
+        - id: audit-service
+          uri: ${AUDIT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/audit-logs/**
+
+jwt:
+  secret: ${JWT_SECRET:change-this-to-a-long-random-secret-key-in-production-please}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

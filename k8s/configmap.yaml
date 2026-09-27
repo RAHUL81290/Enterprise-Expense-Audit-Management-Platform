@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: expense-platform-config
+  namespace: expense-platform
+data:
+  DB_HOST: "postgres-service"
+  DB_PORT: "5432"
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-service:9092"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  AUTH_SERVICE_URL: "http://auth-service:8081"
+  EXPENSE_SERVICE_URL: "http://expense-service:8082"
+  AUDIT_SERVICE_URL: "http://audit-service:8083"
+  JWT_EXPIRATION_MS: "3600000"
